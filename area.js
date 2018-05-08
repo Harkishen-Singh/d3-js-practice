@@ -13,8 +13,15 @@ var area = d3.area().x(function (a,i) {
   console.log(a);
   return 400-a;
 });
+var line = d3.line().curve(d3.curveCardinal).x(function (a,i) {
+  return x_increase[i]*50;
+}).y(function(a,i) {
+  console.log(a);
+  return 400-a;
+});
 
 var svg = d3.select('body').append('svg').attr('height', '100%').attr('width','100%');
+
 var group = svg.append('g').attr('transform', 'translate(0,0)');
 group.append('path').attr('d',area(data)).attr('fill','none').attr('stroke','black').attr('stroke-width','2');
 group.selectAll('circle').data(data).enter().append('circle').data(data).attr('cx', function (a,i) {
@@ -23,3 +30,4 @@ group.selectAll('circle').data(data).enter().append('circle').data(data).attr('c
   console.log(a + ' circle part');
   return 400-a;
 }).attr('r', '5').attr('fill', 'black');
+group.append('path').attr('d', line(data)).attr('stroke', 'blue').attr('stroke-width','4').attr('fill', 'none');
