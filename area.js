@@ -15,5 +15,11 @@ var area = d3.area().x(function (a,i) {
 });
 
 var svg = d3.select('body').append('svg').attr('height', '100%').attr('width','100%');
-
-svg.append('path').attr('d',area(data)).attr('fill','red');
+var group = svg.append('g').attr('transform', 'translate(0,0)');
+group.append('path').attr('d',area(data)).attr('fill','none').attr('stroke','black').attr('stroke-width','2');
+group.selectAll('circle').data(data).enter().append('circle').data(data).attr('cx', function (a,i) {
+  return x_increase[i]*50;
+}).attr('cy', function(a,i) {
+  console.log(a + ' circle part');
+  return 400-a;
+}).attr('r', '5').attr('fill', 'black');
