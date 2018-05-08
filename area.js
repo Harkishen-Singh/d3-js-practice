@@ -19,6 +19,12 @@ var line = d3.line().curve(d3.curveCardinal).x(function (a,i) {
   console.log(a);
   return 400-a;
 });
+var line_step = d3.line().curve(d3.curveStep).x(function (a,i) {
+  return x_increase[i]*50;
+}).y(function(a,i) {
+  console.log(a);
+  return 400-a;
+});
 
 var svg = d3.select('body').append('svg').attr('height', '100%').attr('width','100%');
 
@@ -31,3 +37,4 @@ group.selectAll('circle').data(data).enter().append('circle').data(data).attr('c
   return 400-a;
 }).attr('r', '5').attr('fill', 'black');
 group.append('path').attr('d', line(data)).attr('stroke', 'blue').attr('stroke-width','4').attr('fill', 'none');
+group.append('path').attr('d', line_step(data)).attr('stroke', 'yellow').attr('stroke-width', '4').attr('fill', 'none');
