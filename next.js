@@ -111,14 +111,28 @@ var line = d3.line().curve(d3.curveCardinal).x(function(s, index) {
   return index*10;
 }).y( function (s, index) {
   //console.log(s);
-  return ((max+600)-s)/40;
+  return (max-s)/40;
+});
+var line_step = d3.line().curve(d3.curveStep).x(function(s, index) {
+  return index*10;
+}).y( function (s, index) {
+  //console.log(s);
+  return (max-s)/40;
 });
 
-var group = svg.append('g').attr('transform', 'translate(0,0)');
+var y = d3.scaleLinear().domain([0,600]).range([600,0]);
+var yAxis = d3.axisRight(y).ticks('5').tickPadding('10').tickSize('10');
+var x = d3.scaleLinear().domain([0, 110]).range([0, 1100]);
+var xAxis = d3.axisBottom(x);
 
+var group = svg.append('g').attr('transform', 'translate(50,50)');
+
+group.append('g').attr('class', 'axis x').call(xAxis);
+group.append('g').attr('class', 'axis y').call(yAxis);
 group.append('path').attr('d', line(data)).attr('fill', 'none').attr('stroke', 'black').attr('stroke-width',  '2');
 group.selectAll('circle').data(data).enter().append('circle').attr('cx',function (a,i) {
   return i*10;
 }).attr('cy',function (a,i) {
-  return ((max+600)-a)/40;
-}).attr('r', '4');
+  return (max-a)/40;
+}).attr('r', '4').attr('fill', 'blue');
+group.append('path').attr('d', line_step(data)).attr('fill', 'none').attr('stroke', 'blue').attr('stroke-width',  '1');
