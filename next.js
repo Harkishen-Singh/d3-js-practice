@@ -127,7 +127,7 @@ var xAxis = d3.axisBottom(x);
 
 var group = svg.append('g').attr('transform', 'translate(50,50)');
 
-group.append('g').attr('class', 'axis x').call(xAxis);
+group.append('g').attr('class', 'axis x').call(xAxis).attr('transform', 'translate(0,600)');
 group.append('g').attr('class', 'axis y').call(yAxis);
 group.append('path').attr('d', line(data)).attr('fill', 'none').attr('stroke', 'black').attr('stroke-width',  '2');
 group.selectAll('circle').data(data).enter().append('circle').attr('cx',function (a,i) {
