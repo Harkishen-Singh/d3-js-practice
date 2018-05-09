@@ -119,7 +119,7 @@ var line_step = d3.line().curve(d3.curveStep).x(function(s, index) {
   //console.log(s);
   return (max-s)/40;
 });
-
+var color = d3.scaleSequential(d3.interpolateRainbow).domain([0,10]);
 var y = d3.scaleLinear().domain([0,600]).range([600,0]);
 var yAxis = d3.axisRight(y).ticks('5').tickPadding('10').tickSize('10');
 var x = d3.scaleLinear().domain([0, 110]).range([0, 1100]);
@@ -134,5 +134,5 @@ group.selectAll('circle').data(data).enter().append('circle').attr('cx',function
   return i*10;
 }).attr('cy',function (a,i) {
   return (max-a)/40;
-}).attr('r', '4').attr('fill', 'blue');
+}).attr('r', '4').attr('fill', color(i));
 group.append('path').attr('d', line_step(data)).attr('fill', 'none').attr('stroke', 'blue').attr('stroke-width',  '1');
